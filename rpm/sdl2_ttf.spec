@@ -2,10 +2,9 @@ Summary: Simple DirectMedia Layer - Sample TrueType Font Library
 Name: SDL2_ttf
 Version: 2.0.15
 Release: 1
-Source: http://www.libsdl.org/projects/%{name}/release/%{name}-%{version}.tar.gz
+Source: %{name}-%{version}.tar.gz
 URL: http://www.libsdl.org/projects/SDL_ttf/
 License: zlib
-Group: Applications/Multimedia
 BuildRequires: pkgconfig(sdl2)
 BuildRequires: pkgconfig(freetype2)
 
@@ -15,7 +14,6 @@ applications.
 
 %package devel
 Summary: Simple DirectMedia Layer - Sample TrueType Font Library (Development)
-Group: Development/Libraries
 Requires: %{name}
 
 %description devel
@@ -23,12 +21,12 @@ This library allows you to use TrueType fonts to render text in SDL
 applications.
 
 %prep
-%setup -q -n %{name}-%{version}/%{name}
+%autosetup -p1 -n %{name}-%{version}/%{name}
 
 %build
 ./autogen.sh
 %configure
-make
+%make_build
 
 %install
 %make_install
@@ -41,13 +39,12 @@ make
 
 %files
 %defattr(-,root,root)
-%doc README.txt CHANGES.txt COPYING.txt
+%license COPYING.txt
 %{_libdir}/lib*.so.*
 
 %files devel
 %defattr(-,root,root)
-%doc README.txt CHANGES.txt COPYING.txt
+%doc README.txt CHANGES.txt
 %{_libdir}/lib*.so
 %{_includedir}/*/*.h
 %{_libdir}/pkgconfig/*
-
