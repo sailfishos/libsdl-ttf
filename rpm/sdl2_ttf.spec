@@ -1,10 +1,12 @@
 Summary: Simple DirectMedia Layer - Sample TrueType Font Library
 Name: SDL2_ttf
-Version: 2.0.15
+Version: 2.20.1
 Release: 1
 Source: %{name}-%{version}.tar.gz
-URL: http://www.libsdl.org/projects/SDL_ttf/
+Patch0: 0001-cmake-use-execute_process-for-CMake-3.14-compatibili.patch
+URL: https://github.com/libsdl-org/SDL_net
 License: zlib
+BuildRequires: cmake
 BuildRequires: pkgconfig(sdl2)
 BuildRequires: pkgconfig(freetype2)
 
@@ -24,12 +26,17 @@ applications.
 %autosetup -p1 -n %{name}-%{version}/%{name}
 
 %build
-./autogen.sh
-%configure
+mkdir -p build
+pushd build
+%cmake ..
 %make_build
+popd
 
 %install
+pushd build
 %make_install
+rm -f %{buildroot}%{_datadir}/licenses/%{name}/LICENSE.txt
+popd
 
 %post
 /sbin/ldconfig
@@ -39,7 +46,7 @@ applications.
 
 %files
 %defattr(-,root,root)
-%license COPYING.txt
+%license LICENSE.txt
 %{_libdir}/lib*.so.*
 
 %files devel
@@ -47,4 +54,5 @@ applications.
 %doc README.txt CHANGES.txt
 %{_libdir}/lib*.so
 %{_includedir}/*/*.h
+%{_libdir}/cmake/%{name}/*.cmake
 %{_libdir}/pkgconfig/*
