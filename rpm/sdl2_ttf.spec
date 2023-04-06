@@ -1,9 +1,8 @@
 Summary: Simple DirectMedia Layer - Sample TrueType Font Library
 Name: SDL2_ttf
-Version: 2.20.1
+Version: 2.20.2
 Release: 1
 Source: %{name}-%{version}.tar.gz
-Patch0: 0001-cmake-use-execute_process-for-CMake-3.14-compatibili.patch
 URL: https://github.com/libsdl-org/SDL_net
 License: zlib
 BuildRequires: cmake
